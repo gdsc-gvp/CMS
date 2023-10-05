@@ -1,10 +1,11 @@
 import Header from "./Header";
+import Body from "./Body";
 
 function App() {
     return (
         <div>
             <Header/>
-            <h1 className="text-3xl font-bold">Hello world</h1>
+            <Body/>
         </div>
     );
 }
