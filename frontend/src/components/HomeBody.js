@@ -1,8 +1,7 @@
-import EventPost from "./EventPost";
 import EventPostList from "./EventPostList";
 import ClubList from "./ClubList";
 
-function Body() {
+function HomeBody() {
     return (
         <main className="flex">
             <ClubList/>
@@ -11,4 +10,4 @@ function Body() {
     );
 }
 
-export default Body;
+export default HomeBody;

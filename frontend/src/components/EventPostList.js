@@ -2,7 +2,7 @@ import EventPost from "./EventPost";
 
 function EventPostList() {
     return (
-        <div className="">
+        <div className="pl-[30vw]">
             <EventPost/>
             <EventPost/>
             <EventPost/>
