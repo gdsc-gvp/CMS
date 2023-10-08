@@ -1,6 +1,11 @@
 const ClubModel = require('../models/ClubModel');
 const PostModel = require('../models/PostModel');
 const StudentModel = require('../models/StudentModel');
+const RolesModel = require('../models/RolesModel');
+
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { log } = require('console');
 
 // GET REQUESTS
 
@@ -22,6 +27,26 @@ const getClub = async (req, res) => {
     clubId = req.params.clubId;
     const clubData = await ClubModel.find( { _id: clubId } );
     res.json(clubData[0]);
+  } catch(error) {
+    res.status(500).json( { message: error.message } );
+  }
+}
+
+const getTeam = async (req, res) => {
+  try {
+    clubId = req.params.clubId;
+    const teamData = await RolesModel.find( { clubId: clubId } );
+    res.json(teamData[0]);
+  } catch(error) {
+    res.status(500).json( { message: error.message } );
+  }
+}
+
+const getPosts = async (req, res) => {
+  try {
+    clubPublished = req.params.clubPublished;
+    const postsData = await PostModel.find( { clubPublished: clubPublished } );
+    res.json(postsData[0]);
   } catch(error) {
     res.status(500).json( { message: error.message } );
   }
@@ -65,24 +90,24 @@ const signUp = async (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
-
+  
   try {
     const existingUser = await StudentModel.findOne( { email: email } );
-
     try {
       if (existingUser.password) {
         return res.status(400).json( { message: "User already exists" } );
       }
     } catch (error) {}
-      const hashedPassword = password;
-      let data = existingUser;
-
-      if (existingUser) {
+    let data = existingUser;
+    
+    if (existingUser) {
+        const hashedPassword = await bcrypt.hash(password, 10);
         console.log("updating passord");
-        existingUser.password = password;
+        existingUser.password = hashedPassword;
         existingUser.save();
         res.status(200).json( { message: "User Creation Successful" } )
       } else {
+        const hashedPassword = await bcrypt.hash(password, 10);
         data = new StudentModel({
           email: email,
           password: hashedPassword,
@@ -117,19 +142,29 @@ const signIn = async (req, res) => {
       res.status(404).json( { message: "User not found" } );
     }
 
-    const matchPassword = (password === existingUser.password)
+    const matchPassword = bcrypt.compare(password, existingUser.password);
 
     if (!matchPassword) {
       res.status(400).json( { message: "invalid credentials" } );
     }
 
-    res.status(201).json( { name: existingUser.name } );
+    const accessToken = jwt.sign( { existingUser }, 'privateKey' )
+    res.status(201).json( { accessToken: accessToken } );
 
   } catch (error) {
-    res.status(500).json( { message: "Server went wrong" } );
+    res.status(500).json( { message: error.message } );
   }
+}
+
+const signInAsAdmin = async (req, res) => {
+  const studentId = req.body.studentId;
+  const clubId = req.params.clubId;
+}
+
+const addRole = async (req, res) => {
 
 }
 
+module.exports = { getMain, getClub, getTeam, getPosts, createClub, postEvent, signUp, signIn, addRole, signInAsAdmin };
 
-module.exports = { getMain, getClub, createClub, postEvent, signUp, signIn };
+
