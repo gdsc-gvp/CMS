@@ -2,6 +2,8 @@ import {createBrowserRouter, Outlet} from "react-router-dom";
 import Header from "./Header";
 import HomeBody from "./HomeBody";
 import ClubPage from "./ClubPage";
+import ClubOverview from "./ClubOverview";
+import ClubTeamList from "./ClubTeamList";
 
 function App() {
     return (
@@ -22,8 +24,18 @@ const appRouter = createBrowserRouter([
                 element: <HomeBody/>
             },
             {
-                path: "/club/:clubid",
-                element: <ClubPage/>
+                path: "/club/:clubId",
+                element: <ClubPage/>,
+                children: [
+                    {
+                        path: "/club/:clubId/",
+                        element: <ClubOverview/>
+                    },
+                    {
+                        path: "/club/:clubId/team",
+                        element: <ClubTeamList/>
+                    }
+                ]
             }
         ]
     }
