@@ -1,11 +1,17 @@
 import EventPost from "./EventPost";
 
-function EventPostList() {
+function EventPostList({list}) {
     return (
         <div className="">
-            <EventPost/>
-            <EventPost/>
-            <EventPost/>
+            {list.map((event) => {
+                return <EventPost 
+                            key={event._id}
+                            clubName={event.clubName} 
+                            likes={event.likeCount} 
+                            description={event.postMessage} 
+                            postDate={event.createdAt.slice(0, 10)}
+                        />
+            })}
         </div>
     );
 }

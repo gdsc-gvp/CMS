@@ -1,13 +1,44 @@
+import {createBrowserRouter, Outlet} from "react-router-dom";
 import Header from "./Header";
-import Body from "./Body";
+import HomeBody from "./HomeBody";
+import ClubPage from "./ClubPage";
+import ClubOverview from "./ClubOverview";
+import ClubTeamList from "./ClubTeamList";
 
 function App() {
     return (
         <div>
             <Header/>
-            <Body/>
+            <Outlet/>
         </div>
     );
 }
 
-export default App;
+const appRouter = createBrowserRouter([
+    {
+        path: "/",
+        element: <App/>,
+        children: [
+            {
+                path: "/",
+                element: <HomeBody/>
+            },
+            {
+                path: "/club/:clubId",
+                element: <ClubPage/>,
+                children: [
+                    {
+                        path: "/club/:clubId/",
+                        element: <ClubOverview/>
+                    },
+                    {
+                        path: "/club/:clubId/team",
+                        element: <ClubTeamList/>
+                    }
+                ]
+            }
+        ]
+    }
+]);
+
+export default appRouter;
