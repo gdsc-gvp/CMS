@@ -17,6 +17,10 @@ const rolesSchema = mongoose.Schema({
   roleName: {
     required: true,
     type: String
+  },
+  adminPrivilage: {
+    required: true,
+    type: Boolean
   }
 })
 
