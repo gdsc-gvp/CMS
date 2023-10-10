@@ -20,7 +20,7 @@ function HomeBody() {
     }
 
     return (
-        <main className="flex">
+        <main className="flex pt-[100px]">
             <ClubList list={eventsList.clubData}/>
             <EventPostList list={eventsList.postData} />
         </main>

@@ -4,6 +4,7 @@ import HomeBody from "./HomeBody";
 import ClubPage from "./ClubPage";
 import ClubOverview from "./ClubOverview";
 import ClubTeamList from "./ClubTeamList";
+import LoginPage from "./LoginPage";
 
 function App() {
     return (
@@ -38,6 +39,10 @@ const appRouter = createBrowserRouter([
                 ]
             }
         ]
+    },
+    {
+        path: "/login",
+        element: <LoginPage/>
     }
 ]);
 
