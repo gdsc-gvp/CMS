@@ -3,10 +3,6 @@ const ClubModel = require('./ClubModel');
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-  clubName: {
-    required: true,
-    type: String
-  },
   postMessage: {
     required: true,
     type: String
@@ -15,7 +11,7 @@ const postSchema = new mongoose.Schema({
     required: true,
     type: Number
   },
-  clubPublished: {
+  clubId: {
     required: true,
     type: mongoose.Schema.Types.ObjectId,
     ref: 'ClubModel'

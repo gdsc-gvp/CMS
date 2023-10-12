@@ -79,22 +79,6 @@ const createClub = async (req, res) => {
   }
 }
 
-const postEvent = async (req, res) => {
-  const data = new PostModel({
-    clubPublished: req.params.clubPublished,
-    clubName: req.body.clubName,
-    postMessage: req.body.postMessage,
-    likeCount: req.body.likeCount
-  })
-
-  try {
-    const dataToSave = await data.save();
-    res.status(200).json(dataToSave)
-  } catch(error) {
-    res.status(400).json( { message: error.message } )
-  }
-}
-
 const signUp = async (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
@@ -237,6 +221,35 @@ const addRole = async (req, res) => {
   return res.status(200).json( { message: "role added successfully" } );
 }
 
-module.exports = { getMain, getClub, getTeam, getPosts, createClub, postEvent, signUp, signIn, addRole, signInAsAdmin };
+// Admin specific Routes
+
+const updateClub = async (req, res) => {
+  const clubId = req.body.clubId;
+  const newClubName = req.body.newClubName;
+  const newClubDescription = req.body.newClubDescription;
+
+  const club = await ClubModel.find( { _id: clubId } );
+  console.log(club);
+  club[0].clubName = newClubName;
+  club[0].clubDescription = newClubDescription;
+  club[0].save();
+  res.json( { message: "updated successfully" } );
+}
+
+const postEvent = async (req, res) => {
+  const data = new PostModel({
+    clubId: req.body.clubId,
+    postMessage: req.body.postMessage,
+    likeCount: req.body.likeCount
+  })
+
+  try {
+    const dataToSave = await data.save();
+    res.status(200).json(dataToSave)
+  } catch(error) {
+    res.status(400).json( { message: error.message } )
+  }
+}
 
 
+module.exports = { getMain, getClub, getTeam, getPosts, createClub, postEvent, signUp, signIn, addRole, signInAsAdmin, updateClub };

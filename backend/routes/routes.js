@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { getMain, getClub, getTeam, getPosts, createClub, postEvent, signUp, signIn, addRole, signInAsAdmin } = require('../controller/controller');
+const { getMain, getClub, getTeam, getPosts, createClub, postEvent, signUp, signIn, addRole, signInAsAdmin, updateClub } = require('../controller/controller');
 const auth = require('../middleware/auth');
 const auth2 = require('../middleware/authAdmin');
+const authAdmin = require('../middleware/authAdmin');
 router.use(express.json());
 const SECRET_KEY = "hello";
 module.exports = router;
@@ -23,8 +24,6 @@ router.get('/getPosts/:clubPublished', getPosts);
 
 router.post('/createClub', createClub);
 
-router.post('/postEvent/:clubPublished', postEvent);
-
 router.post('/signUp', signUp);
 
 router.post('/signin', signIn);
@@ -32,3 +31,7 @@ router.post('/signin', signIn);
 router.post('/addRole', addRole);
 
 router.post('/signInAsAdmin', signInAsAdmin);
+
+router.post('/updateClub', authAdmin, updateClub);
+
+router.post('/postEvent', authAdmin, postEvent);
