@@ -3,7 +3,7 @@ const StudentModel = require('./StudentModel');
 
 const mongoose = require('mongoose');
 
-const rolesSchema = mongoose.Schema({
+const roleSchema = mongoose.Schema({
   clubId: {
     required: true,
     type: mongoose.Schema.Types.ObjectId,
@@ -24,4 +24,4 @@ const rolesSchema = mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('RolesData', rolesSchema);
+module.exports = mongoose.model('RoleData', roleSchema);

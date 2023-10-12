@@ -1,4 +1,4 @@
-const RolesModel = require('../models/RolesModel');
+const RolesModel = require('../models/RoleModel');
 const mongoose = require('mongoose');
 
 const jwt = require("jsonwebtoken");
@@ -16,7 +16,6 @@ const authAdmin = (req, res, next) => {
       res.sendStatus(403);
     }
     const student = await RolesModel.find( { studentId: new mongoose.Types.ObjectId(user.existingUser._id) } );
-    console.log(user);
     let isAdmin = student[0].adminPrivilage && (student[0].clubId == clubId);
     if (!isAdmin) {
       return res.status(403).json( { message: "not a admin" } );
