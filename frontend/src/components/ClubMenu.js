@@ -8,6 +8,7 @@ function ClubMenu() {
             <Link className="bg-white shadow-lg py-4 px-6 m-4 rounded-lg font-bold hover:bg-yellow-50 text-center" to={"/club/" + clubId}><button>Overview</button></Link>
             <Link className="bg-white shadow-lg py-4 px-6 m-4 rounded-lg font-bold hover:bg-yellow-50 text-center" to={`/club/${clubId}/team`}><button>Team</button></Link>
             <Link className="bg-white shadow-lg py-4 px-6 m-4 rounded-lg font-bold hover:bg-yellow-50 text-center" to={`/club/${clubId}/events`}><button>Events</button></Link>
+            <Link className="bg-white shadow-lg py-4 px-6 m-4 rounded-lg font-bold hover:bg-yellow-50 text-center" to={`/club/${clubId}/login`}><button>Login as Admin</button></Link>
         </div>
     );
 }

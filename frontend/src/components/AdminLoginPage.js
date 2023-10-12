@@ -1,24 +1,30 @@
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
 
-function LoginPage() {
+function AdminLoginPage() {
     const navigate = useNavigate();
     const email = useRef(null);
     const password = useRef(null);
 
+    const location = useLocation();
+    const cludId = location.pathname.split('/')[2];
+    
     async function handleSubmit(e) {
         e.preventDefault();
         
-        const response = await fetch('http://localhost:3000/api/signin', 
-            {method: 'POST', body: JSON.stringify({email: email.current.value, password: password.current.value}),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
+        const response = await fetch('http://localhost:3000/api/signInASAdmin', 
+            {
+                method: 'POST', 
+                body: JSON.stringify({email: email.current.value, password: password.current.value, clubId: cludId}),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
             }
-        });
+        );
         const data = await response.json();
 
         if(data.accessToken) {
-            navigate("/");
+            navigate("/club/" + cludId);
         }
         console.log(data);
     }
@@ -36,4 +42,4 @@ function LoginPage() {
     );
 }
 
-export default LoginPage;
+export default AdminLoginPage;
