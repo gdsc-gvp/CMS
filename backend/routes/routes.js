@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { getMain, getClub, getTeam, getPosts, createClub, postEvent, signUp, signIn, addRole, signInAsAdmin } = require('../controller/controller');
 const auth = require('../middleware/auth');
+const auth2 = require('../middleware/authAdmin');
 router.use(express.json());
 const SECRET_KEY = "hello";
 module.exports = router;
@@ -28,6 +29,6 @@ router.post('/signUp', signUp);
 
 router.post('/signin', signIn);
 
-router.post('/addRole/:clubId', addRole);
+router.post('/addRole', addRole);
 
-router.post('/signInAsAdmin/:clubId', signInAsAdmin);
+router.post('/signInAsAdmin', signInAsAdmin);
