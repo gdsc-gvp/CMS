@@ -2,6 +2,7 @@ const ClubModel = require('../models/ClubModel');
 const PostModel = require('../models/PostModel');
 const StudentModel = require('../models/StudentModel');
 const RolesModel = require('../models/RolesModel');
+const mongoose = require('mongoose');
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -36,7 +37,15 @@ const getTeam = async (req, res) => {
   try {
     clubId = req.params.clubId;
     const teamData = await RolesModel.find( { clubId: clubId } );
-    res.json(teamData[0]);
+    let team = [];
+    for (const singleTeam of teamData) {
+      const student = await StudentModel.find( { _id: new mongoose.Types.ObjectId(singleTeam.studentId) } );
+      team.push({
+        roleName: singleTeam.roleName,
+        studentName: student[0].name
+      });
+    } 
+    res.json(team);
   } catch(error) {
     res.status(500).json( { message: error.message } );
   }
@@ -101,11 +110,12 @@ const signUp = async (req, res) => {
     let data = existingUser;
     
     if (existingUser) {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        console.log("updating passord");
-        existingUser.password = hashedPassword;
-        existingUser.save();
-        res.status(200).json( { message: "User Creation Successful" } )
+      const hashedPassword = await bcrypt.hash(password, 10);
+      console.log("updating passord");
+      existingUser.name = name;
+      existingUser.password = hashedPassword;
+      existingUser.save();
+      res.status(200).json( { message: "User Creation Successful" } )
       } else {
         const hashedPassword = await bcrypt.hash(password, 10);
         data = new StudentModel({
@@ -135,34 +145,96 @@ const signIn = async (req, res) => {
     const existingUser = await StudentModel.findOne( { email:  email } )
     
     if (!existingUser) {
-      res.status(404).json( { message: "User not found" } );
+      return res.status(404).json( { message: "User not found" } );
     }
     
     if (existingUser && !existingUser.password) {
-      res.status(404).json( { message: "User not found" } );
+      return res.status(404).json( { message: "User not found" } );
     }
 
-    const matchPassword = bcrypt.compare(password, existingUser.password);
+    const matchPassword = await bcrypt.compare(password, existingUser.password);
 
     if (!matchPassword) {
-      res.status(400).json( { message: "invalid credentials" } );
+      return res.status(400).json( { message: "invalid credentials" } );
     }
 
     const accessToken = jwt.sign( { existingUser }, 'privateKey' )
-    res.status(201).json( { accessToken: accessToken } );
+    return res.status(201).json( { accessToken: accessToken } );
 
   } catch (error) {
-    res.status(500).json( { message: error.message } );
+    return res.status(500).json( { message: error.message } );
   }
 }
 
 const signInAsAdmin = async (req, res) => {
-  const studentId = req.body.studentId;
-  const clubId = req.params.clubId;
+  const email = req.body.email;
+  const password = req.body.password;
+  const clubId = req.body.clubId;
+
+  try {
+    const existingUser = await StudentModel.findOne( { email:  email } )
+    
+    if (!existingUser) {
+      return res.status(404).json( { message: "User not found" } );
+    }
+    
+    if (existingUser && !existingUser.password) {
+      return res.status(404).json( { message: "User not found" } );
+    }
+
+    const matchPassword = await bcrypt.compare(password, existingUser.password);
+
+    if (!matchPassword) {
+      return res.status(400).json( { message: "invalid credentials" } );
+    }
+
+    const studentId = existingUser._id;
+    console.log(studentId);
+    const student = await RolesModel.find( { studentId: new mongoose.Types.ObjectId(studentId) } );
+    let isAdmin = student[0].adminPrivilage && (student[0].clubId == clubId);
+    if (!isAdmin) {
+      return res.status(403).json( { message: "not a admin" } );
+    }
+
+    const accessToken = jwt.sign( { existingUser }, 'privateKey' )
+    return res.status(201).json( { accessToken: accessToken } );
+
+  } catch (error) {
+    return res.status(500).json( { message: error.message } );
+  }
+
 }
 
 const addRole = async (req, res) => {
+  const name = req.body.name;
+  const clubId = req.body.clubId;
+  const email = req.body.email;
+  const roleName = req.body.roleName;
+  const adminPrivilage = req.body.adminPrivilage;
 
+  const isAlreadyStudent = await StudentModel.find( { email: email } );
+  console.log(isAlreadyStudent);
+  if (!isAlreadyStudent[0]) {
+    let data = new StudentModel({
+      name: name,
+      email: email
+    })
+    const dataToSave = await data.save();
+    console.log(dataToSave);
+  }
+  
+  const newStudent = await StudentModel.find( { email: email } );
+  console.log(newStudent);
+  const studentId = newStudent[0];
+  let data = new RolesModel({
+    studentId: studentId,
+    clubId: clubId,
+    roleName: roleName,
+    adminPrivilage: adminPrivilage
+  })
+  const dataToSave = await data.save();
+
+  return res.status(200).json( { message: "role added successfully" } );
 }
 
 module.exports = { getMain, getClub, getTeam, getPosts, createClub, postEvent, signUp, signIn, addRole, signInAsAdmin };
