@@ -21,6 +21,7 @@ function ClubOverview() {
     if(!clubData) {
         return <div>loading....</div>
     }
+    
     return (
         <div className="flex bg-white p-4 rounded-lg m-4 h-fit justify-between w-9/12">
             <div className="m-6 flex-1">
@@ -30,7 +31,7 @@ function ClubOverview() {
             <div>
                 <img className="w-[300px] rounded-full shadow-lg" src={require("../images/gdsc-logo.png")} alt="club-logo"></img>
             </div>
-            {admin === clubId && <ClubOverViewUpdate/>}
+            {admin.clubId === clubId && <ClubOverViewUpdate/>}
         </div>
     );
 }

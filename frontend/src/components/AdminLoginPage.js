@@ -27,7 +27,7 @@ function AdminLoginPage() {
         const data = await response.json();
 
         if(data.accessToken) {
-            setAdmin(clubId);
+            setAdmin(data);
             navigate("/club/" + clubId);
         } else {
             console.log(data);
