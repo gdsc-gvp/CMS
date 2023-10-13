@@ -221,7 +221,7 @@ const signInAsAdmin = async (req, res) => {
       return res.status(403).json( { message: "not a admin" } );
     }
     const accessToken = jwt.sign( { existingUser }, 'privateKey' )
-    return res.status(201).json( { accessToken: accessToken, user: existingUser } );
+    return res.status(201).json( { accessToken: accessToken, user: existingUser, clubId: clubId } );
 
   } catch (error) {
     return res.status(500).json( { message: error.message } );
