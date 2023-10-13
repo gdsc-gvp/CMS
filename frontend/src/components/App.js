@@ -6,6 +6,7 @@ import ClubOverview from "./ClubOverview";
 import ClubTeamList from "./ClubTeamList";
 import LoginPage from "./LoginPage";
 import AdminLoginPage from "./AdminLoginPage";
+import ClubEventList from "./ClubEventList";
 
 function App() {
     return (
@@ -36,6 +37,14 @@ const appRouter = createBrowserRouter([
                     {
                         path: "/club/:clubId/team",
                         element: <ClubTeamList/>
+                    },
+                    {
+                        path: "/club/:clubId/events",
+                        element: <ClubEventList/>
+                    },
+                    {
+                        path: "/club/:clubId/login",
+                        element: <AdminLoginPage/>
                     }
                 ]
             }
@@ -45,10 +54,6 @@ const appRouter = createBrowserRouter([
         path: "/login",
         element: <LoginPage/>
     },
-    {
-        path: "/club/:clubId/login",
-        element: <AdminLoginPage/>
-    }
 ]);
 
 export default appRouter;

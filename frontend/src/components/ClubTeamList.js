@@ -6,32 +6,26 @@ function ClubTeamList() {
     const {clubId} = useParams();
     const [clubTeamList, setClubTeamList] = useState([]);
 
-    // useEffect(() => {
-    //     fetchTeamData();
-    // }, []);
+    useEffect(() => {
+        fetchTeamData();
+    }, []);
 
-    // async function fetchTeamData() {
-    //     const response = await fetch("http://localhost:3000/api/getTeam/" + clubId);
-    //     const data = await response.json();
-    //     console.log(data);
-    //     setClubTeamList(data);
-    // }
+    async function fetchTeamData() {
+        const response = await fetch("http://localhost:3000/api/getTeam/" + clubId);
+        const data = await response.json();
+        console.log(data);
+        setClubTeamList(data);
+    }
 
-    // if(clubTeamList.length === 0) {
-    //     return <div>loading...</div>
-    // }
+    if(clubTeamList.length === 0) {
+        return <div>loading...</div>
+    }
 
     return (
-        <div className="flex flex-wrap bg-white rounded-lg m-4 justify-around p-6">
-            {/* {clubTeamList.map((memeber) => 
-                <ClubTeamMember />
-            )} */}
-            <ClubTeamMember/>
-            <ClubTeamMember/>
-            <ClubTeamMember/>
-            <ClubTeamMember/>
-            <ClubTeamMember/>
-            <ClubTeamMember/>
+        <div className="flex flex-wrap bg-white rounded-lg m-4 justify-around p-6 w-9/12">
+            {clubTeamList.map((memeber) => 
+                <ClubTeamMember key={memeber.studentName} name={memeber.studentName} role={memeber.roleName}/>
+            )}
         </div>
     );
 }

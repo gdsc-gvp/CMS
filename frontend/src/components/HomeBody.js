@@ -11,7 +11,6 @@ function HomeBody() {
     async function fetchData() {
         const respone = await fetch("http://localhost:3000/api/getMain");
         const data = await respone.json();
-        console.log(data);
         setEventList(data);
     }
 
