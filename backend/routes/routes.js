@@ -15,7 +15,7 @@ router.get('/getClub/:clubId', getClub);
 
 router.get('/getTeam/:clubId', getTeam);
 
-router.get('/getPosts/:clubPublished', getPosts);
+router.get('/getPosts/:clubId', getPosts);
 
 
 // POST REQUESTS
@@ -26,17 +26,19 @@ router.post('/signUp', signUp);
 
 router.post('/signin', signIn);
 
-router.post('/addRole', addRole);
-
 router.post('/signInAsAdmin', signInAsAdmin);
 
-router.post('/postEvent', authAdmin, postEvent);
+/* ----------------- ADMIN SPECIFIC POST REQUESTS -------------------- */
 
 router.post('/updateClub', authAdmin, updateClub);
 
-router.post('/updatePost', authAdmin, updatePost);
+router.post('/addRole', authAdmin, addRole);
 
 router.post('/updateRole', authAdmin, updateRole);
+
+router.post('/postEvent', authAdmin, postEvent);
+
+router.post('/updatePost', authAdmin, updatePost);
 
 router.post('/deletePost', authAdmin, deletePost);
 

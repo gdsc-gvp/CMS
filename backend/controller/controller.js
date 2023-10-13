@@ -29,6 +29,27 @@ const getMain = async (req, res) => {
     res.status(500).json( { message: error.message } );
   }
 }
+/*
+res : {
+  clubData: [
+    {
+      _id: "sampleid123",
+      clubName: "xyz",
+      clubDescription: "sample desc"
+    }, {}, {}, ...
+  ],
+  postData: [
+    {
+      _id: "sampleid123",
+      postMessage: "sample message",
+      likeCount: 20,
+      clubId: "698643jkhsd8w8y7438",
+      createdAt: 2023-10-08T14:00:18.025+00:00,
+      updatedAt: 2023-10-08T14:00:18.025+00:00
+    }, {}, {}, ...
+  ]
+}
+*/
 
 
 // club overview page
@@ -70,9 +91,9 @@ const getTeam = async (req, res) => {
 
 const getPosts = async (req, res) => {
   try {
-    clubPublished = req.params.clubPublished;
-    const postsData = await PostModel.find( { clubPublished: clubPublished } );
-    res.json(postsData[0]);
+    clubId = req.params.clubId;
+    const postsData = await PostModel.find( { clubId: clubId } );
+    res.json(postsData);
   } catch(error) {
     res.status(500).json( { message: error.message } );
   }
@@ -160,7 +181,7 @@ const signIn = async (req, res) => {
       return res.status(400).json( { message: "invalid credentials" } );
     }
     const accessToken = jwt.sign( { existingUser }, 'privateKey' )
-    return res.status(201).json( { accessToken: accessToken } );
+    return res.status(201).json( { accessToken: accessToken, user: existingUser } );
   } catch (error) {
     return res.status(500).json( { message: error.message } );
   }
@@ -192,7 +213,7 @@ const signInAsAdmin = async (req, res) => {
       return res.status(403).json( { message: "not a admin" } );
     }
     const accessToken = jwt.sign( { existingUser }, 'privateKey' )
-    return res.status(201).json( { accessToken: accessToken } );
+    return res.status(201).json( { accessToken: accessToken, user: existingUser } );
 
   } catch (error) {
     return res.status(500).json( { message: error.message } );
@@ -249,7 +270,6 @@ const updateRole = async (req, res) => {
   const roleId = req.body.roleId;
   const newRoleName = req.body.newRoleName;
   const newAdminPrivilage = req.body.newAdminPrivilage;
-  
   const role = await RolesModel.findOne( { _id: roleId } );
   role.roleName = newRoleName;
   role.adminPrivilage = newAdminPrivilage;
