@@ -21,9 +21,17 @@ const getMain = async (req, res) => {
   try {
     const clubData = await ClubModel.find();
     const postData = await PostModel.find();
+    const copyPostData = [];
+    for (const post of postData) {
+      const copyPost = JSON.parse(JSON.stringify(post));
+      const club = await ClubModel.findOne( { _id: post.clubId } );
+      copyPost["clubName"] = club.clubName;
+      copyPostData.push(copyPost);
+    }
+    console.log(copyPostData);
     const data = {};
     data.clubData = clubData;
-    data.postData = postData;
+    data.postData = copyPostData;
     res.json(data);
   } catch(error) {
     res.status(500).json( { message: error.message } );
@@ -303,8 +311,10 @@ const postEvent = async (req, res) => {
 const updatePost = async (req, res) => {
   const postId = req.body.postId;
   const newPostMessage = req.body.newPostMessage;
+  const newPostTitle = req.body.newPostTitle;
   const post = await PostModel.findOne( { _id: postId } );
   post.postMessage = newPostMessage;
+  post.postTitle = newPostTitle;
   post.save();
   res.json( { message: "post updated successfull" } );
 }

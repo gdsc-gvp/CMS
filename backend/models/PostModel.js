@@ -3,6 +3,10 @@ const ClubModel = require('./ClubModel');
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
+  postTitle: {
+    required: true,
+    type: String
+  },
   postMessage: {
     required: true,
     type: String
