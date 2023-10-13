@@ -11,7 +11,6 @@ function HomeBody() {
     async function fetchData() {
         const respone = await fetch("http://localhost:3000/api/getMain");
         const data = await respone.json();
-        console.log(data);
         setEventList(data);
     }
 
@@ -20,7 +19,7 @@ function HomeBody() {
     }
 
     return (
-        <main className="flex">
+        <main className="flex pt-[100px]">
             <ClubList list={eventsList.clubData}/>
             <EventPostList list={eventsList.postData} />
         </main>

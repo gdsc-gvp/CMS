@@ -1,13 +1,16 @@
 import {Outlet} from "react-router-dom";
 import ClubMenu from "./ClubMenu";
+import AdminProvider from "../utils/context/AdminProvider";
 
 function ClubPage() {
 
     return (
-        <div className="flex">
-            <ClubMenu/>
-            <Outlet/>
-        </div>
+        <AdminProvider>
+            <div className="flex pt-[100px]">
+                <ClubMenu/>
+                <Outlet/>
+            </div>
+        </AdminProvider>
     );
 }
 

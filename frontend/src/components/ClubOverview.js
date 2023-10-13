@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import AdminContext from "../utils/context/AdminContext";
+import ClubOverViewUpdate from "./club-admin/ClubOverviewUpdate";
 
 function ClubOverview() {
     const {clubId} = useParams();
     const [clubData, setClubData] = useState();
+    const {admin} = useContext(AdminContext);
 
     useEffect(() => {
         fetchClubData();
@@ -13,7 +16,6 @@ function ClubOverview() {
         const response = await fetch("http://localhost:3000/api/getClub/" + clubId);
         const data = await response.json();
         setClubData(data);
-        console.log(data);
     }
 
     if(!clubData) {
@@ -28,6 +30,7 @@ function ClubOverview() {
             <div>
                 <img className="w-[300px] rounded-full shadow-lg" src={require("../images/gdsc-logo.png")} alt="club-logo"></img>
             </div>
+            {admin === clubId && <ClubOverViewUpdate/>}
         </div>
     );
 }
