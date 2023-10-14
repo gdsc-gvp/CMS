@@ -24,7 +24,7 @@ function ClubEventList() {
     return (
         <div className='m-1 w-9/12'>
             {eventList.map((post) => {
-                return <ClubEventPost key={post._id} description={post.postMessage} date={post.createdAt.slice(0, 10)}/>
+                return <ClubEventPost key={post._id} description={post.postMessage} date={post.createdAt.slice(0, 10)} title={post.postTitle}/>
             })}
         </div>
     );
