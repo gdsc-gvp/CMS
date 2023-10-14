@@ -37,7 +37,7 @@ NodeJs should be installed in your system.
    ```sh
    npm start
    ```
-////////////////////////////////////////////////////////////////////
+
 ## Backend
 # How to setup and run backend locally
 
