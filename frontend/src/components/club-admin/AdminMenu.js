@@ -9,7 +9,7 @@ function AdminMenu() {
         <div className="flex flex-col">
             <Link className="bg-white shadow-lg py-4 px-6 m-4 rounded-lg font-bold hover:bg-yellow-50 text-center"><button onClick={() => setAdmin(false)}>Logout</button></Link>
             <Link className="bg-white shadow-lg py-4 px-6 m-4 rounded-lg font-bold hover:bg-yellow-50 text-center" to={`/club/${clubId}/addTeamMember`}>Add team member</Link>
-            <Link className="bg-white shadow-lg py-4 px-6 m-4 rounded-lg font-bold hover:bg-yellow-50 text-center">Add Event</Link>
+            <Link className="bg-white shadow-lg py-4 px-6 m-4 rounded-lg font-bold hover:bg-yellow-50 text-center" to={`/club/${clubId}/addEvent`}>Add Event</Link>
         </div>
     );
 }
