@@ -297,6 +297,7 @@ const deleteRole = async (req, res) => {
 const postEvent = async (req, res) => {
   const data = new PostModel({
     clubId: req.body.clubId,
+    postTitle: req.body.postTitle,
     postMessage: req.body.postMessage,
     likeCount: req.body.likeCount
   })
