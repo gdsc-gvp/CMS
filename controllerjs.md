@@ -1,14 +1,13 @@
 # API Documentation
----
 
 
 ## Endpoint: /api/main
 
 This endpoint retrieves data related to clubs and posts.
 
-## HTTP Method: 'GET'
+### HTTP Method: 'GET'
 
-## Request Parameters
+### Request Parameters
 
 This endpoint does not require any specific query parameters or request body.
 
