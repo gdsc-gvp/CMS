@@ -8,6 +8,7 @@ import LoginPage from "./LoginPage";
 import AdminLoginPage from "./AdminLoginPage";
 import ClubEventList from "./ClubEventList";
 import AddTeamMember from "./club-admin/AddTeamMember";
+import AddEvent from "./club-admin/AddEvent";
 
 function App() {
     return (
@@ -50,6 +51,10 @@ const appRouter = createBrowserRouter([
                     {
                         path: "/club/:clubId/addTeamMember",
                         element: <AddTeamMember/>
+                    },
+                    {
+                        path: "/club/:clubId/addEvent",
+                        element: <AddEvent/>
                     }
                 ]
             }

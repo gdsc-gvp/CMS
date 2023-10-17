@@ -18,7 +18,7 @@ function EventPost(props) {
                 </div>
             </div>
             <div className="py-2">
-                <p>{description}</p>
+                <p className="whitespace-pre-wrap">{description}</p>
             </div>
             <div>
                 <img src={require("../images/event-image.jpg")} alt="event-image"></img>
