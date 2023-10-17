@@ -10,7 +10,20 @@ const RolesModel = require('../models/RoleModel');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
 
+// Storage
+
+const Storage = multer.diskStorage({
+  destination: 'postImages', 
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  }
+});
+
+const uploadPost = multer({
+  storage: Storage
+}).single('testImage')
 
 /* ------------------------- GET REQUESTS ------------------------- */
 
@@ -295,18 +308,36 @@ const deleteRole = async (req, res) => {
 // // Events Page Routes --->
 
 const postEvent = async (req, res) => {
-  const data = new PostModel({
-    clubId: req.body.clubId,
-    postTitle: req.body.postTitle,
-    postMessage: req.body.postMessage,
-    likeCount: req.body.likeCount
+  uploadPost(req, res, err => {
+    if(err) {
+      console.log(err);
+    } else {
+      const newImage = new PostModel({
+        clubId: req.body.clubId,
+        postTitle: req.body.postTitle,
+        postMessage: req.body.postMessage,
+        likeCount: req.body.likeCount,
+        postImage: {
+          data: req.file.filename,
+          contentType: 'image/png'
+        }
+      })
+      newImage.save()
+    }
   })
-  try {
-    const dataToSave = await data.save();
-    res.status(200).json(dataToSave)
-  } catch(error) {
-    res.status(400).json( { message: error.message } )
-  }
+
+  // const data = new PostModel({
+  //   clubId: req.body.clubId,
+  //   postTitle: req.body.postTitle,
+  //   postMessage: req.body.postMessage,
+  //   likeCount: req.body.likeCount,
+  // })
+  // try {
+  //   const dataToSave = await data.save();
+  //   res.status(200).json(dataToSave)
+  // } catch(error) {
+  //   res.status(400).json( { message: error.message } )
+  // }
 }
 
 const updatePost = async (req, res) => {

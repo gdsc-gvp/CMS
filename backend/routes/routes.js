@@ -36,7 +36,7 @@ router.post('/addRole', authAdmin, addRole);
 
 router.post('/updateRole', authAdmin, updateRole);
 
-router.post('/postEvent', authAdmin, postEvent);
+router.post('/postEvent', postEvent);
 
 router.post('/updatePost', authAdmin, updatePost);
 
