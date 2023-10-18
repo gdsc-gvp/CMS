@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import AdminContext from "../utils/context/AdminContext";
-import ClubOverViewUpdate from "./club-admin/ClubOverviewUpdate";
 
 function ClubOverview() {
     const {clubId} = useParams();
@@ -26,12 +25,12 @@ function ClubOverview() {
         <div className="flex bg-white p-4 rounded-lg m-4 h-fit justify-between w-9/12">
             <div className="m-6 flex-1">
                 <h1 className="font-bold text-3xl mb-4">{clubData.clubName}</h1>
-                <p className="text-justify">{clubData.clubDescription}</p>
+                <p className="text-justify whitespace-pre-wrap">{clubData.clubDescription}</p>
             </div>
             <div>
                 <img className="w-[300px] rounded-full shadow-lg" src={require("../images/gdsc-logo.png")} alt="club-logo"></img>
-            </div>
-            {admin.clubId === clubId && <ClubOverViewUpdate/>}
+                {admin.clubId === clubId && <Link to={`/club/${clubId}/updateOverview`}><button className="m-2 px-4 py-2 rounded-lg bg-yellow-300">update</button></Link>}
+            </div>   
         </div>
     );
 }

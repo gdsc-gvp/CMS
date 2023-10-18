@@ -1,18 +1,25 @@
 import { useContext, useState } from "react";
 import AdminContext from "../../utils/context/AdminContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import convertToBase64 from "../../utils/convertToBase64";
 
 function AddTeamMember() {
     const [name, setName] = useState('');
     const [role, setRole] = useState('');
     const [email, setEmail] = useState('');
     const [adminPrivilage, setAdminPrivilage] = useState(false);
+    const [image, setImage] = useState();
 
     const {admin} = useContext(AdminContext);
     const location = useLocation();
     const clubId = location.pathname.split('/')[2];
     const navigate = useNavigate();
 
+    async function handleFileUpload(e) {
+        const file = e.target.files[0];
+        const base64 = await convertToBase64(file);
+        setImage(base64);
+    }
 
     async function addMember(e) {
         e.preventDefault();
@@ -40,10 +47,9 @@ function AddTeamMember() {
                     Give Admin privilage
                 </label>
                 <label className="m-2 p-2 bg-yellow-300 rounded-lg">
-                    <input type="file" className="p-2 m-2" name="photo" hidden={true}/>
+                    <input type="file" className="p-2 m-2" name="photo" hidden={true} onChange={(e) => handleFileUpload(e)}/>
                     Upload team member profile photo
                 </label>
-                
                 <button className="py-2 px-4 bg-yellow-300 w-fit rounded-lg m-4 font-bold text-xl" type="submit">Add</button>
             </form>
         </div>
