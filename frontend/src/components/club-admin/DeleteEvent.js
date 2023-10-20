@@ -1,37 +1,29 @@
-import { useContext } from 'react';
-import {BASE_API_URL} from '../../utils/constant';
-import AdminContext from '../../utils/context/AdminContext';
-import { useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+import AdminContext from "../../utils/context/AdminContext";
+import { useNavigate } from "react-router-dom";
+import { deleteEventApi } from "../../services/apis/private/eventApis.private";
 
 function DeleteEvent(props) {
-    const {id, clubId} = props;
-    const {admin} = useContext(AdminContext);
-    
-    const navigate = useNavigate();
-    
-    async function deleteEvent() {
-        try {
-            const response = await fetch(BASE_API_URL + "/deletePost", {
-                method: 'POST',
-                body: JSON.stringify({clubId: clubId, postId: id}),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    'Authorization': `BEARER ${admin.accessToken}`
-                }
-            });
+  const { id, clubId } = props;
+  const { admin } = useContext(AdminContext);
 
-            const data = await response.json();
-            navigate(0);
-        } catch(error) {
-            console.error(error);
-        }
-    }
+  const navigate = useNavigate();
 
-    return (
-        <div className="my-3">
-            <button className="px-4 py-1 rounded-lg bg-yellow-300" onClick={deleteEvent}>delete</button>
-        </div>
-    );
+  async function deleteEvent() {
+    const body = { clubId, postId: id };
+
+    const response = await deleteEventApi({ body, token: admin.accessToken });
+
+    if (response.data) navigate(0);
+  }
+
+  return (
+    <div className="my-3">
+      <button className="px-4 py-1 rounded-lg bg-yellow-300" onClick={deleteEvent}>
+        delete
+      </button>
+    </div>
+  );
 }
 
 export default DeleteEvent;
