@@ -85,7 +85,8 @@ const getTeam = async (req, res) => {
       team.push({
         roleId: role._id,
         roleName: role.roleName,
-        studentName: student[0].name
+        studentName: student[0].name,
+        profilePic: student[0].profile
       });
     } 
     res.json(team);
@@ -117,7 +118,8 @@ const getPosts = async (req, res) => {
 const createClub = async (req, res) => {
   const data = new ClubModel({
     clubName: req.body.clubName,
-    clubDescription: req.body.clubDescription
+    clubDescription: req.body.clubDescription,
+    clubImage: req.body.clubImage
   })
   try {
     const dataToSave = await data.save();
@@ -134,7 +136,7 @@ const signUp = async (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
-  
+  const profile = req.body.profile;
   try {
     const existingUser = await StudentModel.findOne( { email: email } );
     try {
@@ -155,7 +157,8 @@ const signUp = async (req, res) => {
         data = new StudentModel({
           email: email,
           password: hashedPassword,
-          name: name
+          name: name,
+          profile: profile
         })
         try {
           const dataToSave = await data.save();
@@ -238,6 +241,7 @@ const updateClub = async (req, res) => {
   const clubId = req.body.clubId;
   const newClubName = req.body.newClubName;
   const newClubDescription = req.body.newClubDescription;
+  const newClubImage = req.body.newClubImage;
   const club = await ClubModel.findOne( { _id: clubId } );
   club.clubName = newClubName;
   club.clubDescription = newClubDescription;
@@ -299,7 +303,8 @@ const postEvent = async (req, res) => {
     clubId: req.body.clubId,
     postTitle: req.body.postTitle,
     postMessage: req.body.postMessage,
-    likeCount: req.body.likeCount
+    likeCount: req.body.likeCount,
+    postImage: req.body.postImage
   })
   try {
     const dataToSave = await data.save();
@@ -313,9 +318,11 @@ const updatePost = async (req, res) => {
   const postId = req.body.postId;
   const newPostMessage = req.body.newPostMessage;
   const newPostTitle = req.body.newPostTitle;
+  const newPostImage = req.body.newPostImage;
   const post = await PostModel.findOne( { _id: postId } );
   post.postMessage = newPostMessage;
   post.postTitle = newPostTitle;
+  post.postImage = newPostImage;
   post.save();
   res.json( { message: "post updated successfull" } );
 }

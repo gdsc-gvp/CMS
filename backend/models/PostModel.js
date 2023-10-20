@@ -19,6 +19,9 @@ const postSchema = new mongoose.Schema({
     required: true,
     type: mongoose.Schema.Types.ObjectId,
     ref: 'ClubModel'
+  },
+  postImage: {
+    type: String
   }
 }, {
   timestamps: true

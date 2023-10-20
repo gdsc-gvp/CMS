@@ -8,6 +8,9 @@ const clubSchema = new mongoose.Schema({
   clubDescription: {
     required: true,
     type: String
+  },
+  clubImage: {
+    type: String
   }
 })
 
