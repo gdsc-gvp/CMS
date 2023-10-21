@@ -1,39 +1,35 @@
-import {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
-import ClubEventPost from './ClubEventPost';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import ClubEventPost from "./ClubEventPost";
+import { getPostsByClubIdApi } from "../services/apis/public/clubApis.public";
 
 function ClubEventList() {
-    const {clubId} = useParams();
-    const [eventList, setEventList] = useState();
+  const { clubId } = useParams();
+  const [eventList, setEventList] = useState();
 
-    useEffect(() => {
-        fetchEvents();
-    }, []);
+  useEffect(() => {
+    fetchEvents();
+  }, []);
 
-    async function fetchEvents() {
-        const response = await fetch("http://localhost:3000/api/getPosts/" + clubId);
-        const data = await response.json();
-        console.log(data);
-        setEventList(data);
-    }
+  async function fetchEvents() {
+    const response = await getPostsByClubIdApi({ id: clubId });
 
-    if(!eventList) {
-        return <div>loading.....</div>
-    }
+    if (response.data) setEventList(response.data);
+  }
 
-    return (
-        <div className='m-1 w-9/12'>
-            {eventList.map((post) => {
-                return <ClubEventPost 
-                            key={post._id} 
-                            description={post.postMessage} 
-                            date={post.createdAt.slice(0, 10)} 
-                            title={post.postTitle} 
-                            id={post._id}
-                        />
-            })}
-        </div>
-    );
+  if (!eventList) {
+    return <div>loading.....</div>;
+  }
+
+  return (
+    <div className="m-1 w-9/12">
+      {eventList.map((post) => {
+        return (
+          <ClubEventPost key={post._id} description={post.postMessage} date={post.createdAt.slice(0, 10)} title={post.postTitle} id={post._id} />
+        );
+      })}
+    </div>
+  );
 }
 
 export default ClubEventList;
