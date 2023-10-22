@@ -245,6 +245,7 @@ const updateClub = async (req, res) => {
   const club = await ClubModel.findOne( { _id: clubId } );
   club.clubName = newClubName;
   club.clubDescription = newClubDescription;
+  club.clubImage = newClubImage;
   club.save();
   res.json( { message: "club updated successfully" } );
 }
