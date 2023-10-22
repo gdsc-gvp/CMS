@@ -26,9 +26,9 @@ const getMain = async (req, res) => {
       const copyPost = JSON.parse(JSON.stringify(post));
       const club = await ClubModel.findOne( { _id: post.clubId } );
       copyPost["clubName"] = club.clubName;
+      copyPost["clubImage"] = club.clubImage;
       copyPostData.push(copyPost);
     }
-    console.log(copyPostData);
     const data = {};
     data.clubData = clubData;
     data.postData = copyPostData;
