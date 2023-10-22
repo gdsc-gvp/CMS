@@ -1,11 +1,10 @@
-import { useContext } from "react";
-import AdminContext from "../../utils/context/AdminContext";
+import useAdmin from "../../utils/useAdmin";
 import { useNavigate } from "react-router-dom";
 import { deleteEventApi } from "../../services/apis/private/eventApis.private";
 
 function DeleteEvent(props) {
   const { id, clubId } = props;
-  const { admin } = useContext(AdminContext);
+  const { admin } = useAdmin();
 
   const navigate = useNavigate();
 

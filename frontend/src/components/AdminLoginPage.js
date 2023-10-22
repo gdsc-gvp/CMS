@@ -20,10 +20,10 @@ function AdminLoginPage() {
     const response = await getAccessTokenAsAdminApi({ body });
 
     if (response.data?.accessToken) {
-      setAdmin(data);
+      setAdmin(response.data);
       navigate("/club/" + clubId);
     } else {
-      console.log(data);
+      console.log(response.data);
     }
   }
 

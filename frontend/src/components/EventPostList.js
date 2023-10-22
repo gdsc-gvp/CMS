@@ -10,6 +10,8 @@ function EventPostList({list}) {
                             likes={event.likeCount} 
                             description={event.postMessage} 
                             postDate={event.createdAt.slice(0, 10)}
+                            postImage={event.postImage}
+                            clubImage={event.clubImage}
                         />
             })}
         </div>

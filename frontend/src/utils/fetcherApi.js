@@ -19,13 +19,14 @@ import { BASE_API_URL } from "./constant";
  * @param {string} [options.token] - An authentication token to include in the request headers.
  * @returns {Object} An object with response data and error details.
  */
+
 const fetcher = async ({ path, options, token }) => {
   const url = BASE_API_URL + path;
   const response = { data: null, error: { data: null, statusCode: null } };
 
   options = {
     headers: {
-      "content-type": "application/json; charset=UTF-8",
+      "Content-type": "application/json; charset=UTF-8",
     },
     ...options,
   };
