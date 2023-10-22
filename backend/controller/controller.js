@@ -26,9 +26,9 @@ const getMain = async (req, res) => {
       const copyPost = JSON.parse(JSON.stringify(post));
       const club = await ClubModel.findOne( { _id: post.clubId } );
       copyPost["clubName"] = club.clubName;
+      copyPost["clubImage"] = club.clubImage;
       copyPostData.push(copyPost);
     }
-    console.log(copyPostData);
     const data = {};
     data.clubData = clubData;
     data.postData = copyPostData;
@@ -245,6 +245,7 @@ const updateClub = async (req, res) => {
   const club = await ClubModel.findOne( { _id: clubId } );
   club.clubName = newClubName;
   club.clubDescription = newClubDescription;
+  club.clubImage = newClubImage;
   club.save();
   res.json( { message: "club updated successfully" } );
 }
