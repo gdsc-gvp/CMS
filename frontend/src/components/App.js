@@ -10,6 +10,8 @@ import ClubEventList from "./ClubEventList";
 import AddTeamMember from "./club-admin/AddTeamMember";
 import AddEvent from "./club-admin/AddEvent";
 import UpdateOverview from "./club-admin/UpdateOverview";
+import UpdateEventPost from "./club-admin/UpdateEventPost";
+import UpdateTeamMember from "./club-admin/UpdateTeamMember";
 
 function App() {
     return (
@@ -60,6 +62,14 @@ const appRouter = createBrowserRouter([
                     {
                         path: "/club/:clubId/updateOverview",
                         element: <UpdateOverview/>
+                    },
+                    {
+                        path: "/club/:clubId/updatePost/:postId",
+                        element: <UpdateEventPost/>
+                    },
+                    {
+                        path: "/club/:clubId/updateMember/:roleId",
+                        element: <UpdateTeamMember/>
                     }
                 ]
             }

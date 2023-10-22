@@ -15,7 +15,9 @@ function ClubOverview() {
   async function fetchClubData() {
     const response = await getClubByIdApi({ id: clubId });
 
-    if (response.data) setClubData(data);
+    if (response.data) {
+      setClubData(response.data);
+    }
   }
 
   if (!clubData) {
@@ -29,8 +31,8 @@ function ClubOverview() {
         <p className="text-justify whitespace-pre-wrap">{clubData.clubDescription}</p>
       </div>
       <div>
-        <img className="w-[300px] rounded-full shadow-lg" src={require("../images/gdsc-logo.png")} alt="club-logo"></img>
-        {admin.clubId === clubId && (
+        <img className="w-[300px] h-[300px] rounded-full shadow-lg" src={clubData.clubImage} alt="club-logo"></img>
+        {admin?.clubId === clubId && (
           <Link to={`/club/${clubId}/updateOverview`}>
             <button className="m-2 px-4 py-2 rounded-lg bg-yellow-300">update</button>
           </Link>

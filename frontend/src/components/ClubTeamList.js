@@ -24,7 +24,7 @@ function ClubTeamList() {
   return (
     <div className="flex flex-wrap bg-white rounded-lg m-4 justify-around p-6 w-9/12">
       {clubTeamList.map((memeber) => (
-        <ClubTeamMember key={memeber.roleId} name={memeber.studentName} role={memeber.roleName} id={memeber.roleId} />
+        <ClubTeamMember key={memeber.roleId} name={memeber.studentName} role={memeber.roleName} id={memeber.roleId} memeberImage={memeber.profilePic}/>
       ))}
     </div>
   );
