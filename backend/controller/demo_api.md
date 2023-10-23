@@ -275,3 +275,151 @@ Content-Type: application/json
   "message": "Internal server error message"
 }
 ```
+## Add Role
+
+### Overview
+The "Add Role" endpoint allows you to add a role to a student in a club.
+
+### Endpoint
+- **URL:** `/api/addRole`
+- **Method:** `POST`
+
+### Request
+- **Parameters:**
+  - `name` (string, required): The name of the student.
+  - `clubId` (string, required): The ID of the club where the role is being added.
+  - `email` (string, required): The email of the student.
+  - `roleName`(string, required): The name of the role being assigned.`
+  - `adminPrivilage`(boolean, required): Whether the role has administrative privileges (true or false).
+
+#### Example Request
+```plaintext
+{
+  "name": "John Doe",
+  "clubId": "club123",
+  "email": "john.doe@example.com",
+  "roleName": "Treasurer",
+  "adminPrivilage": true
+}
+```
+
+### Response
+- **Status Codes:**
+  - `200`: OK
+  - `400`: Bad Request
+  - `500`: Internal Server Error
+- **Response Body:**
+   - `message` (string): Success message.
+
+#### Example Response (Success)
+```plaintext
+{
+  "message": "Role added successfully"
+}
+```
+
+#### Example Response (Bad Request)
+```plaintext
+{
+  "message": "Invalid request. Please provide all required parameters."
+}
+```
+#### Example Response (Internal Server Error)
+```plaintext
+{
+  "message": "An internal server error occurred. Please try again later."
+}
+```
+
+## Update Role
+
+### Overview
+This "Update Role" endpoint allows you to update an existing role.
+
+### Endpoint
+- **URL:** `/api/updateRole`
+- **Method:** `POST`
+
+### Request
+- **Parameters:**
+  - `roleId` (string, required): The ID of the role you want to update.
+  - `newRoleName` (string, optional): The new name for the role (can be null).
+  - `newAdminPrivilage`(boolean, optional): The new administrative privilege for the role     (true or false, can be null).
+#### Example Request
+```plaintext
+{
+  "roleId": "role123",
+  "newRoleName": "Secretary",
+  "newAdminPrivilage": true
+}
+```
+### Response
+- **Status Codes:**
+  - `200`: OK
+  - `400`: Bad Request
+  - `500`: Internal Server Error
+- **Response Body:**
+  - `message` (string): Success message.
+#### Example Response (Success)
+```plaintext
+{
+  "message": "Updated successfully"
+}
+```
+
+#### Example Response (Bad Request)
+```plaintext
+{
+  "message": "Invalid request. Please provide a valid role ID for updating."
+}
+```
+#### Example Response (Internal Server Error)
+```plaintext
+{
+  "message": "An internal server error occurred. Please try again later."
+}
+```
+
+## Delete Role
+
+### Overview
+This "Delete Role" endpoint allows you to delete an existing role by its ID.
+
+### Endpoint
+- **URL:** `/api/deleteRole`
+- **Method:** `POST`
+
+### Request
+- **Parameters:**
+  - roleId (string, required): The ID of the role you want to delete.
+#### Example Request
+```plaintext
+{
+  "roleId": "role123"
+}
+```
+### Response
+- **Status Codes:**
+  - `200`: OK
+  - `400`: Bad Request
+  - `500`: Internal Server Error
+- **Response Body:**
+  - `message` (string): Success message.
+#### Example Response (Success)
+```plaintext
+{
+  "message": "Successfully deleted"
+}
+```
+#### Example Response (Bad Request)
+```plaintext
+{
+  "message": "Invalid request. Please provide a valid roleId."
+}
+```
+#### Example Response (Internal Server Error)
+```plaintext
+{
+  "message": "An internal server error occurred. Please try again later."
+}
+```
