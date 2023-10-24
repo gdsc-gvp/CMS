@@ -15,7 +15,7 @@ function HomeBody() {
     }
 
     if(eventsList.length === 0) {
-        return <div>loding...</div>
+        return <div>loading...</div>
     }
 
     return (
