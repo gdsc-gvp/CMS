@@ -423,3 +423,151 @@ This "Delete Role" endpoint allows you to delete an existing role by its ID.
   "message": "An internal server error occurred. Please try again later."
 }
 ```
+## Post Event
+
+### Overview
+This "Post Event" endpoint allows you to create and post an event.
+
+### Endpoint
+- **URL:** `/api/postEvent`
+- **Method:** `POST`
+
+### Request
+- **Parameters:**
+  - `clubId` (string, required): The ID of the club where the event is being posted.
+  - `postTitle` (string, required): The title of the event.
+  - `postMessage` (string, required): The message or description of the event.
+  - `likeCount` (number, optional): The initial like count for the event (default is 0).
+  - `postImage` (string, optional): URL or image data associated with the event (can be null).
+#### Example Request
+```plaintext
+{
+  "clubId": "club123",
+  "postTitle": "Annual Gala",
+  "postMessage": "Join us for our annual gala event!",
+  "likeCount": 10,
+  "postImage": "https://example.com/images/gala.jpg"
+}
+
+```
+
+### Response
+- **Status Codes:**
+  - `200`: OK
+  - `400`: Bad Request
+- **Response Body:**
+   - `message` (string): Success message.
+#### Example Response (Success)
+```plaintext
+{
+  "clubId": "club123",
+  "postTitle": "Annual Gala",
+  "postMessage": "Join us for our annual gala event!",
+  "likeCount": 10,
+  "postImage": "https://example.com/images/gala.jpg",
+  "_id": "event123",
+  "createdAt": "2023-10-23T12:00:00.000Z"
+}
+
+```
+
+#### Example Response (Bad Request)
+```plaintext
+{
+  "message": "Invalid request. Please provide all required parameters."
+}
+```
+## Update Post
+
+### Overview
+This "Update Post"endpoint allows you to update an existing post.
+
+### Endpoint
+- **URL:** `/api/updatePost`
+- **Method:** `POST`
+
+### Request
+- **Parameters:**
+  - `postId` (string, required): The ID of the post you want to update.
+  - `newPostMessage` (string, optional): The new message or description of the post (can be null).
+  - `newPostTitle` (string, optional): The new title of the post (can be null).
+  - `newPostImage` (string, optional): URL or image data associated with the post (can be null).
+#### Example Request
+```plaintext
+{
+  "postId": "post123",
+  "newPostMessage": "Updated event details",
+  "newPostTitle": "Updated Event",
+  "newPostImage": "https://example.com/images/updated-event.jpg"
+}
+```
+### Response
+- **Status Codes:**
+  - `200`: OK
+  - `400`: Bad Request
+  - `500`: Internal server error
+- **Response Body:**
+   - `message` (string): Success message.
+#### Example Response (Success)
+```plaintext
+{
+  "message": "Post updated successfully"
+}
+```
+#### Example Response (Bad Request)
+```plaintext
+{
+  "message": "Invalid request. Please provide a valid postId and at least one field to update."
+}
+```
+#### Example Response (Internal Server Error)
+```plaintext
+{
+  "message": "An internal server error occurred. Please try again later."
+}
+```
+## Delete Post
+
+### Overview
+This "Delete Post" endpoint allows you to delete an existing post by its ID.
+
+### Endpoint
+- **URL:** `/api/deletePost`
+- **Method:** `POST`
+
+### Request
+- **Parameters:**
+  - `postId` (string, required): The ID of the post you want to delete 
+#### Example Request
+```plaintext
+{
+  "postId": "post123"
+}
+```
+
+### Response
+- **Status Codes:**
+  - `200`: OK
+  - `400`: Bad Request
+  - `500`: Internal server error
+- **Response Body:**
+   - `message` (string): Success message.
+#### Example Response (Success)
+```plaintext
+{
+  "message": "Successfully deleted"
+}
+```
+#### Example Response (Bad Request)
+```plaintext
+{
+  "message": "Invalid request. Please provide a valid postId."
+}
+
+```
+#### Example Response (Internal Server Error)
+```plaintext
+{
+  "message": "An internal server error occurred. Please try again later."
+}
+```
