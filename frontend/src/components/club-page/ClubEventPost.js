@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import DeleteEvent from "./club-admin/DeleteEvent";
-import AdminContext from "../utils/context/AdminContext";
+import DeleteEvent from "../club-admin/DeleteEvent";
+import AdminContext from "../../utils/context/AdminContext";
 import { useLocation, Link } from "react-router-dom";
 
 function ClubEventPost(props) {
@@ -19,7 +19,7 @@ function ClubEventPost(props) {
                 <h1 className="font-bold text-3xl">{title}</h1>
                 <p className="mb-4">posted on {date}</p>
                 <p className="whitespace-pre-wrap">{description.slice(0, 125) + "....."}</p>
-                {admin.clubId === clubId && 
+                {admin?.clubId === clubId && 
                     <div>
                         <DeleteEvent id={id} clubId={clubId} />
                         <Link className="px-4 py-1 bg-yellow-300 rounded-lg" to={`/club/${clubId}/updatePost/${id}`} state={{clubId, postImage, title, description}}>update</Link>

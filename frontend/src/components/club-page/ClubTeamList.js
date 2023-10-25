@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ClubTeamMember from "./ClubTeamMember";
 import { useParams } from "react-router-dom";
-import { getTeamByClubIdApi } from "../services/apis/public/clubApis.public";
+import { getTeamByClubIdApi } from "../../services/apis/public/clubApis.public";
 
 function ClubTeamList() {
   const { clubId } = useParams();

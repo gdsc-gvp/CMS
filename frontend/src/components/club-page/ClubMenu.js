@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
-import AdminContext from "../utils/context/AdminContext";
-import AdminMenu from "./club-admin/AdminMenu";
+import AdminContext from "../../utils/context/AdminContext";
+import AdminMenu from "../club-admin/AdminMenu";
 
 function ClubMenu() {
     const {clubId} = useParams();

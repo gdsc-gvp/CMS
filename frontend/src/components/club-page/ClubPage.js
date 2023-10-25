@@ -1,6 +1,6 @@
 import {Outlet} from "react-router-dom";
 import ClubMenu from "./ClubMenu";
-import AdminProvider from "../utils/context/AdminProvider";
+import AdminProvider from "../../utils/context/AdminProvider";
 
 function ClubPage() {
 

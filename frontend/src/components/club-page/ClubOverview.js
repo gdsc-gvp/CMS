@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import AdminContext from "../utils/context/AdminContext";
-import { getClubByIdApi } from "../services/apis/public/clubApis.public";
+import AdminContext from "../../utils/context/AdminContext";
+import { getClubByIdApi } from "../../services/apis/public/clubApis.public";
 
 function ClubOverview() {
   const { clubId } = useParams();
