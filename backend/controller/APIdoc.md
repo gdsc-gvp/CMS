@@ -367,7 +367,7 @@ GET https://yourapi.com/api/posts/your_club_id
 ### Response
 - **Status Codes :** 
     * `200 OK` **:** Successful request. A list of posts is returned.
-    * `404 Not Found` **:** he club with the specified `clubId` does not exist or has no posts.
+    * `404 Not Found` **:** The club with the specified `clubId` does not exist or has no posts.
     * `500 Internal Server Error `**:** Server error.
 
 - **Response Body :** A JSON array containing post data or an error message.
