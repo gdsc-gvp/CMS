@@ -29,8 +29,8 @@ GET https://api.example.com/api/get-main-data
 
 
   * **`clubData`** (Array)**:** An array of club objects with the following fields:
-  * **`_id`** (string) **:** The unique identifier for the club.**
-  * **`name`'** (string): The name of the club.
+  * **`_id`** (string) **:** The unique identifier for the club.
+  * **`name`** (string): The name of the club.
   
 * **`postData`**  (Array)**:** An array of post objects with the following fields:
   
