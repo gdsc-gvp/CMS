@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ClubEventPost from "./ClubEventPost";
-import { getPostsByClubIdApi } from "../services/apis/public/clubApis.public";
+import { getPostsByClubIdApi } from "../../services/apis/public/clubApis.public";
 
 function ClubEventList() {
   const { clubId } = useParams();
