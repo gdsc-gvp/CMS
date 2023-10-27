@@ -2,6 +2,6 @@
 
 | Username | email id | skills |
 | :----- | :-------- | :----------------: |
-| sahithigurlinnka3 | Sahithi@gmail.com | Python, JavaScript, Node.js, Machine learning, Deep Learning, Keras, PToprch |
+| sahithigurlinka3 | Sahithigurlinka@gmail.com | Python, Machine learning, Deep Learning, NLP|
 
 ## Contribution
